@@ -64,6 +64,10 @@ matches_A, matches_B, batch_ids = matcher.match(keypoints_A, description_A,
 matches_A, matches_B = matcher.to_pixel_coords(matches_A, matches_B, H_A, W_A, H_B, W_B)
 
 ```
+## Pretrained Models
+
+Right now you can find them here: https://github.com/Parskatt/DeDoDe/releases/tag/dedode_pretrained_models
+Probably we'll add some autoloading in the near future.
 
 ## BibTeX
 

@@ -32,11 +32,16 @@
 ## How to Use DeDoDe?
 Below we show how DeDoDe can be run, you can also check out the [demos](demo)
 ```python
-from DeDoDe import dedode_detector_L, dedode_descriptor_B
+from DeDoDe import dedode_detector_L, dedode_descriptor_B, dedode_descriptor_G
 from DeDoDe.matchers.dual_softmax_matcher import DualSoftMaxMatcher
 
 detector = dedode_detector_L(weights = torch.load("dedode_detector_L.pth"))
+# Choose either a smaller descriptor,
 descriptor = dedode_descriptor_B(weights = torch.load("dedode_descriptor_B.pth"))
+# Or a larger one
+descriptor = dedode_descriptor_G(weights = torch.load("dedode_descriptor_G.pth"), 
+                                 dinov2_weights = None) # You can manually load dinov2 weights, or we'll pull from facebook
+
 matcher = DualSoftMaxMatcher()
 
 im_A_path = "assets/im_A.jpg"
@@ -64,6 +69,10 @@ matches_A, matches_B, batch_ids = matcher.match(keypoints_A, description_A,
 matches_A, matches_B = matcher.to_pixel_coords(matches_A, matches_B, H_A, W_A, H_B, W_B)
 
 ```
+
+## License
+All code/models except DINOv2 (descriptor-G), are MIT license (do whatever you want). 
+DINOv2 has a non-commercial license (see LICENSE_DINOv2).
 
 ## BibTeX
 

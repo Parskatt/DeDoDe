@@ -41,9 +41,9 @@ class DeDoDeDescriptor(nn.Module):
         described_keypoints = F.grid_sample(description_grid.float(), keypoints[:,None], mode = "bilinear", align_corners = False)[:,:,0].mT
         return {"descriptions": described_keypoints}
     
-    def read_image(self, im_path, H = 560, W = 560):
+    def read_image(self, im_path, H = 784, W = 784):
         return self.normalizer(torch.from_numpy(np.array(Image.open(im_path).resize((W,H)))/255.).permute(2,0,1)).cuda().float()[None]
 
-    def describe_keypoints_from_path(self, im_path, keypoints, H = 768, W = 768):
+    def describe_keypoints_from_path(self, im_path, keypoints, H = 784, W = 784):
         batch = {"image": self.read_image(im_path, H = H, W = W)}
         return self.describe_keypoints(batch, keypoints)

@@ -5,17 +5,7 @@ from DeDoDe.detectors.dedode_detector import DeDoDeDetector
 from DeDoDe.descriptors.dedode_descriptor import DeDoDeDescriptor
 from DeDoDe.decoder import ConvRefiner, Decoder
 from DeDoDe.encoder import VGG19, VGG, VGG_DINOv2
-
-def get_best_device(verbose = True):
-    device = torch.device('cpu')
-    if torch.cuda.is_available():
-        device = torch.device('cuda')
-    elif torch.backends.mps.is_available():
-        device = torch.device('mps')
-    else:
-        device = torch.device('cpu')
-    if verbose: print (f"Fastest device found is: {device}")
-    return device
+from DeDoDe.utils import get_best_device
 
 
 def dedode_detector_B(device = get_best_device(), weights = None):

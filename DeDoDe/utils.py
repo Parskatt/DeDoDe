@@ -11,6 +11,19 @@ from einops import rearrange
 import torch
 from time import perf_counter
 
+
+def get_best_device(verbose = False):
+    device = torch.device('cpu')
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+    elif torch.backends.mps.is_available():
+        device = torch.device('mps')
+    else:
+        device = torch.device('cpu')
+    if verbose: print (f"Fastest device found is: {device}")
+    return device
+
+
 def recover_pose(E, kpts0, kpts1, K0, K1, mask):
     best_num_inliers = 0
     K0inv = np.linalg.inv(K0[:2,:2])
@@ -54,7 +67,7 @@ def estimate_pose(kpts0, kpts1, K0, K1, norm_thresh, conf=0.99999):
     return ret
 
 
-def get_grid(B,H,W, device = "cuda"):
+def get_grid(B,H,W, device = get_best_device()):
     x1_n = torch.meshgrid(
     *[
         torch.linspace(
@@ -67,7 +80,7 @@ def get_grid(B,H,W, device = "cuda"):
     return x1_n
 
 @torch.no_grad()
-def finite_diff_hessian(f: tuple(["B", "H", "W"]), device = "cuda"):
+def finite_diff_hessian(f: tuple(["B", "H", "W"]), device = get_best_device()):
     dxx = torch.tensor([[0,0,0],[1,-2,1],[0,0,0]], device = device)[None,None]/2
     dxy = torch.tensor([[1,0,-1],[0,0,0],[-1,0,1]], device = device)[None,None]/4
     dyy = dxx.mT
@@ -77,7 +90,7 @@ def finite_diff_hessian(f: tuple(["B", "H", "W"]), device = "cuda"):
     H = torch.stack((Hxx, Hxy, Hxy, Hyy), dim = -1).reshape(*f.shape,2,2)
     return H
 
-def finite_diff_grad(f: tuple(["B", "H", "W"]), device = "cuda"):
+def finite_diff_grad(f: tuple(["B", "H", "W"]), device = get_best_device()):
     dx = torch.tensor([[0,0,0],[-1,0,1],[0,0,0]],device = device)[None,None]/2
     dy = dx.mT
     gx = F.conv2d(f[:,None], dx, padding = 1)
@@ -89,7 +102,7 @@ def fast_inv_2x2(matrix: tuple[...,2,2], eps = 1e-10):
     return 1/(torch.linalg.det(matrix)[...,None,None]+eps) * torch.stack((matrix[...,1,1],-matrix[...,0,1],
                                                      -matrix[...,1,0],matrix[...,0,0]),dim=-1).reshape(*matrix.shape)
 
-def newton_step(f:tuple["B","H","W"], inds, device = "cuda"):
+def newton_step(f:tuple["B","H","W"], inds, device = get_best_device()):
     B,H,W = f.shape
     Hess = finite_diff_hessian(f).reshape(B,H*W,2,2)
     Hess = torch.gather(Hess, dim = 1, index = inds[...,None].expand(B,-1,2,2))
@@ -100,7 +113,7 @@ def newton_step(f:tuple["B","H","W"], inds, device = "cuda"):
     return step[...,0]
 
 @torch.no_grad()
-def sample_keypoints(scoremap, num_samples = 8192, device = "cuda", use_nms = True, 
+def sample_keypoints(scoremap, num_samples = 8192, device = get_best_device(), use_nms = True, 
                      sample_topk = False, return_scoremap = False, sharpen = False, upsample = False,
                      increase_coverage = False,):
     #scoremap = scoremap**2
@@ -132,7 +145,7 @@ def sample_keypoints(scoremap, num_samples = 8192, device = "cuda", use_nms = Tr
     return kps
 
 @torch.no_grad()
-def jacobi_determinant(warp, certainty, R = 3, device = "cuda", dtype = torch.float32):
+def jacobi_determinant(warp, certainty, R = 3, device = get_best_device(), dtype = torch.float32):
     t = perf_counter()
     *dims, _ = warp.shape
     warp = warp.to(dtype)
@@ -632,6 +645,13 @@ def to_cuda(batch):
     return batch
 
 
+def to_best_device(batch, device=get_best_device()):
+    for key, value in batch.items():
+        if isinstance(value, torch.Tensor):
+            batch[key] = value.to(device)
+    return batch
+
+
 def to_cpu(batch):
     for key, value in batch.items():
         if isinstance(value, torch.Tensor):
@@ -711,7 +731,7 @@ def homog_transform(Homog, x):
     y = from_homogeneous(yh)
     return y
 
-def get_homog_warp(Homog, H, W, device = "cuda"):
+def get_homog_warp(Homog, H, W, device = get_best_device()):
     grid = torch.meshgrid(torch.linspace(-1+1/H,1-1/H,H, device = device), torch.linspace(-1+1/W,1-1/W,W, device = device))
     
     x_A = torch.stack((grid[1], grid[0]), dim = -1)[None]

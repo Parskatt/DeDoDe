@@ -1,6 +1,6 @@
 import torch
 from tqdm import tqdm
-from DeDoDe.utils import to_cuda
+from DeDoDe.utils import to_cuda, to_best_device
 
 
 def train_step(train_batch, model, objective, optimizer, grad_scaler = None,**kwargs):
@@ -25,7 +25,7 @@ def train_k_steps(
     for n in tqdm(range(n_0, n_0 + k), disable=not progress_bar, mininterval = 10.):
         batch = next(dataloader)
         model.train(True)
-        batch = to_cuda(batch)
+        batch = to_best_device(batch)
         train_step(
             train_batch=batch,
             model=model,
@@ -49,7 +49,7 @@ def train_epoch(
     model.train(True)
     print(f"At epoch {epoch}")
     for batch in tqdm(dataloader, mininterval=5.0):
-        batch = to_cuda(batch)
+        batch = to_best_device(batch)
         train_step(
             train_batch=batch, model=model, objective=objective, optimizer=optimizer
         )

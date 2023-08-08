@@ -8,7 +8,7 @@ import DeDoDe
 
 class DescriptorLoss(nn.Module):
     
-    def __init__(self, detector, num_keypoints = 5000, normalize_descriptions = False, inv_temp = 1, device = "cuda") -> None:
+    def __init__(self, detector, num_keypoints = 5000, normalize_descriptions = False, inv_temp = 1, device = get_best_device()) -> None:
         super().__init__()
         self.detector = detector
         self.tracked_metrics = {}

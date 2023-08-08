@@ -5,7 +5,7 @@ import torchvision.models as tvm
 import torch.nn.functional as F
 import numpy as np
 
-from DeDoDe.utils import sample_keypoints, to_pixel_coords, to_normalized_coords
+from DeDoDe.utils import sample_keypoints, to_pixel_coords, to_normalized_coords, get_best_device
 
 
 
@@ -56,10 +56,10 @@ class DeDoDeDetector(nn.Module):
         keypoint_logits = self.forward(batch)["keypoint_logits"]
         return {"dense_keypoint_logits": keypoint_logits}
 
-    def read_image(self, im_path, H = 784, W = 784):
+    def read_image(self, im_path, H = 784, W = 784, device=get_best_device()):
         pil_im = Image.open(im_path).resize((W, H))
         standard_im = np.array(pil_im)/255.
-        return self.normalizer(torch.from_numpy(standard_im).permute(2,0,1)).cuda().float()[None]
+        return self.normalizer(torch.from_numpy(standard_im).permute(2,0,1)).float().to(device)[None]
 
     def detect_from_path(self, im_path, num_keypoints = 30_000, H = 784, W = 784, dense = False):
         batch = {"image": self.read_image(im_path, H = H, W = W)}

@@ -5,10 +5,10 @@ from DeDoDe.detectors.dedode_detector import DeDoDeDetector
 from DeDoDe.descriptors.dedode_descriptor import DeDoDeDescriptor
 from DeDoDe.decoder import ConvRefiner, Decoder
 from DeDoDe.encoder import VGG19, VGG, VGG_DINOv2
+from DeDoDe.utils import get_best_device
 
 
-
-def dedode_detector_B(device = "cuda", weights = None):
+def dedode_detector_B(device = get_best_device(), weights = None):
     residual = True
     hidden_blocks = 5
     amp_dtype = torch.float16
@@ -64,7 +64,7 @@ def dedode_detector_B(device = "cuda", weights = None):
     return model
 
 
-def dedode_detector_L(device = "cuda", weights = None):
+def dedode_detector_L(device = get_best_device(), weights = None):
     NUM_PROTOTYPES = 1
     residual = True
     hidden_blocks = 8
@@ -121,7 +121,7 @@ def dedode_detector_L(device = "cuda", weights = None):
 
 
 
-def dedode_descriptor_B(device = "cuda", weights = None):
+def dedode_descriptor_B(device = get_best_device(), weights = None):
     NUM_PROTOTYPES = 256 # == descriptor size
     residual = True
     hidden_blocks = 5
@@ -176,7 +176,7 @@ def dedode_descriptor_B(device = "cuda", weights = None):
         model.load_state_dict(weights)
     return model
 
-def dedode_descriptor_G(device = "cuda", weights = None, dinov2_weights = None):
+def dedode_descriptor_G(device = get_best_device(), weights = None, dinov2_weights = None):
     NUM_PROTOTYPES = 256 # == descriptor size
     residual = True
     hidden_blocks = 5

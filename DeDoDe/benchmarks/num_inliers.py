@@ -5,7 +5,7 @@ import DeDoDe
 
 class NumInliersBenchmark(nn.Module):
     
-    def __init__(self, dataset, num_samples = 1000, batch_size = 8, num_keypoints = 10_000, device = "cuda") -> None:
+    def __init__(self, dataset, num_samples = 1000, batch_size = 8, num_keypoints = 10_000, device = get_best_device()) -> None:
         super().__init__()
         sampler = torch.utils.data.WeightedRandomSampler(
                 torch.ones(len(dataset)), replacement=False, num_samples=num_samples
@@ -19,7 +19,7 @@ class NumInliersBenchmark(nn.Module):
         self.N = len(dataloader)
         self.num_keypoints = num_keypoints
     
-    def compute_batch_metrics(self, outputs, batch, device = "cuda"):
+    def compute_batch_metrics(self, outputs, batch, device = get_best_device()):
         kpts_A, kpts_B = outputs["keypoints_A"], outputs["keypoints_B"]
         B, K, H, W = batch["im_A"].shape
         gt_warp_A_to_B, valid_mask_A_to_B = get_gt_warp(                
@@ -58,7 +58,7 @@ class NumInliersBenchmark(nn.Module):
         from tqdm import tqdm
         print("Evaluating percent inliers...")
         for idx, batch in tqdm(enumerate(self.dataloader), mininterval = 10.):
-            batch = to_cuda(batch)
+            batch = to_best_device(batch)
             outputs = detector.detect(batch, num_keypoints = self.num_keypoints)
             keypoints_A, keypoints_B = outputs["keypoints"][:self.batch_size], outputs["keypoints"][self.batch_size:] 
             if isinstance(outputs["keypoints"], (tuple, list)):

@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center"><ins>DeDoDe</ins> 🎶<br>Detect, Don't Describe, Describe, Don't Detect, <br> for Local Feature Matching</h1>
+  <h1 align="center"><ins>DeDoDe</ins> 🎶<br>Detect, Don't Describe --- Describe, Don't Detect <br> for Local Feature Matching</h1>
   <p align="center">
     <a href="https://scholar.google.com/citations?user=Ul-vMR0AAAAJ">Johan Edstedt</a>
     ·
@@ -8,7 +8,6 @@
     <a href="https://scholar.google.com/citations?user=6WRQpCQAAAAJ">Mårten Wadenbäck</a>
     ·
     <a href="https://scholar.google.com/citations?user=lkWfR08AAAAJ">Michael Felsberg</a>
-    ·
   </p>
   <h2 align="center"><p>
     <a href="https://arxiv.org/abs/2308.08479" align="center">Paper</a> | 

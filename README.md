@@ -11,7 +11,7 @@
     ·
   </p>
   <h2 align="center"><p>
-    <a href="TODO" align="center">Paper (TODO)</a> | 
+    <a href="https://arxiv.org/abs/2308.08479" align="center">Paper</a> | 
     <a href="TODO" align="center">Project Page (TODO)</a>
   </p></h2>
   <div align="center"></div>

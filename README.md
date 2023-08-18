@@ -73,6 +73,10 @@ matches_A, matches_B = matcher.to_pixel_coords(matches_A, matches_B, H_A, W_A, H
 Right now you can find them here: https://github.com/Parskatt/DeDoDe/releases/tag/dedode_pretrained_models
 Probably we'll add some autoloading in the near future.
 
+## DeDoDe in Other Frameworks
+
+- [fabio-sim/DeDoDe-ONNX-TensorRT](https://github.com/fabio-sim/DeDoDe-ONNX-TensorRT): Deploy DeDoDe with ONNX and TensorRT 🚀
+
 ## License
 All code/models except DINOv2 (descriptor-G), are MIT license (do whatever you want). 
 DINOv2 has a non-commercial license (see LICENSE_DINOv2).

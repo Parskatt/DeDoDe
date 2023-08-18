@@ -83,4 +83,13 @@ DINOv2 has a non-commercial license (see LICENSE_DINOv2).
 
 ## BibTeX
 
-Coming Soon ;)
+```txt
+@article{edstedt2023dedode,
+      title={{DeDoDe: Detect, Don't Describe -- Describe, Don't Detect for Local Feature Matching}}, 
+      author={Johan Edstedt and Georg Bökman and Mårten Wadenbäck and Michael Felsberg},
+      year={2023},
+      eprint={2308.08479},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```

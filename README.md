@@ -76,6 +76,8 @@ Probably we'll add some autoloading in the near future.
 ## DeDoDe in Other Frameworks
 
 - [fabio-sim/DeDoDe-ONNX-TensorRT](https://github.com/fabio-sim/DeDoDe-ONNX-TensorRT): Deploy DeDoDe with ONNX and TensorRT 🚀
+- [Image Matching WebUI](https://github.com/Vincentqyw/image-matching-webui): a web GUI to easily compare different matchers, including DeDoDe
+ 🤗
 
 ## License
 All code/models except DINOv2 (descriptor-G), are MIT license (do whatever you want). 

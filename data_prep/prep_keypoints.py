@@ -1,7 +1,4 @@
 import argparse
-
-import imagesize
-
 import numpy as np
 
 import os

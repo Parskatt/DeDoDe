@@ -8,7 +8,7 @@ from DeDoDe.utils import tensor_to_pil, get_best_device
 
 if __name__ == "__main__":
     device = get_best_device()
-    detector = dedode_detector_L(weights = torch.load("dedode_detector_l.pth", map_location = device))
+    detector = dedode_detector_L(weights = torch.load("dedode_detector_L.pth", map_location = device))
     H, W = 768, 768
     im_path = "assets/im_A.jpg"
 

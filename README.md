@@ -68,6 +68,15 @@ matches_A, matches_B, batch_ids = matcher.match(keypoints_A, description_A,
 matches_A, matches_B = matcher.to_pixel_coords(matches_A, matches_B, H_A, W_A, H_B, W_B)
 
 ```
+## Training DeDoDe
+
+DISCLAMER: I've (Johan) not yet tested that the training scripts here reproduces our original results. This repo is very similar to the internal training repo, but there might be bugs introduced by refactoring etc. Let me know if you face any issues reproducing our results (or if you somehow get better results :D).
+
+See [experiments](experiments) for the scripts to train DeDoDe. We trained on a single A100-40GB with a batchsize of 8. Note that you need to do the data prep first, see [data_prep](data_prep).
+
+As usual, we require that you have the MegaDepth dataset already downloaded, and that you have the prepared scene info from [DKM](https://github.com/Parskatt/DKM/blob/main/docs/training.md).
+
+
 ## Pretrained Models
 
 Right now you can find them here: https://github.com/Parskatt/DeDoDe/releases/tag/dedode_pretrained_models

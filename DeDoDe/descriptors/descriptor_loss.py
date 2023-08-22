@@ -58,13 +58,6 @@ class DescriptorLoss(nn.Module):
                                             normalize = self.normalize_descriptions,
                                             inv_temperature = self.inv_temp)
         neg_log_likelihood = -logP_A_B[inds[:,0], inds[:,1], inds[:,2]].mean()
-        if False:
-            import matplotlib.pyplot as plt
-            inds0 = inds[inds[:,0] == 0]
-            mnn_A = kpts_A[0,inds0[:,1]].detach().cpu()
-            mnn_B = kpts_B[0,inds0[:,2]].detach().cpu()
-            plt.scatter(mnn_A[:,0], -mnn_A[:,1], s = 0.5)
-            plt.savefig("vis/mnn_A.jpg")
         self.tracked_metrics["neg_log_likelihood"] = (0.99 * self.tracked_metrics.get("neg_log_likelihood", neg_log_likelihood.detach().item()) + 0.01 * neg_log_likelihood.detach().item())
         if np.random.rand() > 0.99:
             print(self.tracked_metrics["neg_log_likelihood"])

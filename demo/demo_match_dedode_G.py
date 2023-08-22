@@ -39,7 +39,7 @@ if __name__ == "__main__":
     matches_A, matches_B, batch_ids = matcher.match(keypoints_A, description_A,
         keypoints_B, description_B,
         P_A = P_A, P_B = P_B,
-        normalize = True, inv_temp=20, threshold = 0.1)#Increasing threshold -> fewer matches, fewer outliers
+        normalize = True, inv_temp=20, threshold = 0.01)#Increasing threshold -> fewer matches, fewer outliers
 
     matches_A, matches_B = matcher.to_pixel_coords(matches_A, matches_B, H_A, W_A, H_B, W_B)
-    Image.fromarray(draw_matches(im_A, matches_A[::5], im_B, matches_B[::5])).save("demo/matches.jpg")
+    Image.fromarray(draw_matches(im_A, matches_A, im_B, matches_B)).save("demo/matches.jpg")

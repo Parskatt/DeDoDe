@@ -14,7 +14,7 @@ def draw_kpts(im, kpts):
 
 if __name__ == "__main__":
     device = get_best_device()
-    detector = dedode_detector_L(weights = torch.load("dedode_detector_l.pth", map_location = device))
+    detector = dedode_detector_L(weights = torch.load("dedode_detector_L.pth", map_location = device))
     im_path = "assets/im_A.jpg"
     im = Image.open(im_path)
     out = detector.detect_from_path(im_path, num_keypoints = 10_000)

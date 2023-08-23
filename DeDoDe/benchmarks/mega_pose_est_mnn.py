@@ -65,8 +65,8 @@ class MegaDepthPoseMNNBenchmark:
                     im_B = Image.open(im_B_path)
                     w2, h2 = im_B.size
                     if scale_intrinsics:
-                        scale1 = 1200 / max(w1, h1)
-                        scale2 = 1200 / max(w2, h2)
+                        scale1 = 840 / max(w1, h1)
+                        scale2 = 840 / max(w2, h2)
                         w1, h1 = scale1 * w1, scale1 * h1
                         w2, h2 = scale2 * w2, scale2 * h2
                         K1, K2 = K1.copy(), K2.copy()

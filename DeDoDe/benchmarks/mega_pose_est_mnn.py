@@ -23,7 +23,7 @@ class MegaDepthPoseMNNBenchmark:
         ]
         self.data_root = data_root
 
-    def benchmark(self, detector_model, descriptor_model, matcher_model, model_name = None, resolution = None, scale_intrinsics = True, calibrated = True):
+    def benchmark(self, detector_model, descriptor_model, matcher_model, model_name = None, resolution = None, scale_intrinsics = False, calibrated = True):
         with torch.no_grad():
             data_root = self.data_root
             tot_e_t, tot_e_R, tot_e_pose = [], [], []

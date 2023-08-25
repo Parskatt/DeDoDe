@@ -1,6 +1,6 @@
 numpy
 matplotlib
-torch
+torch>=1.10.0
 torchvision
 h5py
 tqdm

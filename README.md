@@ -84,9 +84,7 @@ Probably we'll add some autoloading in the near future.
  🤗
 
 ## License
-All code/models except DINOv2 (descriptor-G), are MIT license (do whatever you want). 
-DINOv2 has a non-commercial license (see LICENSE_DINOv2).
-
+All code/models except DINOv2 (descriptor-G), are MIT license. DINOv2 is Apache-2 license
 ## BibTeX
 
 ```txt

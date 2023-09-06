@@ -21,8 +21,6 @@
     <em>The DeDoDe detector learns to detect 3D consistent repeatable keypoints, which the DeDoDe descriptor learns to match. The result is a powerful decoupled local feature matcher.</em>
 </p>
 
-**Note**: Due to an accidental double definition of the pose estimator, the results for all detector+descriptor methods that we report are overestimated. See https://github.com/Parskatt/DeDoDe/issues/12 for details.
-
 ## How to Use DeDoDe?
 Below we show how DeDoDe can be run, you can also check out the [demos](demo)
 ```python

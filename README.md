@@ -87,7 +87,7 @@ All code/models except DINOv2 (descriptor-G), are MIT license. DINOv2 is Apache-
 
 ```txt
 @inproceedings{edstedt2024dedode,
-  title={{DeDoDe: Detect, Don't Describe -- Describe, Don't Detect for Local Feature Matching}},
+  title={{DeDoDe: Detect, Don't Describe --- Describe, Don't Detect for Local Feature Matching}},
   author = {Johan Edstedt and Georg Bökman and Mårten Wadenbäck and Michael Felsberg},
   booktitle={2024 International Conference on 3D Vision (3DV)},
   year={2024},

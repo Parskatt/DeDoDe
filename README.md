@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center"><ins>DeDoDe</ins> 🎶<br>Detect, Don't Describe --- Describe, Don't Detect <br> for Local Feature Matching</h1>
+  <h1 align="center"> <ins>DeDoDe</ins> 🎶<br>Detect, Don't Describe --- Describe, Don't Detect <br> for Local Feature Matching<br> 3DV 2024 Oral</h1>
   <p align="center">
     <a href="https://scholar.google.com/citations?user=Ul-vMR0AAAAJ">Johan Edstedt</a>
     ·
@@ -62,8 +62,6 @@ matches_A, matches_B = matcher.to_pixel_coords(matches_A, matches_B, H_A, W_A, H
 
 ```
 ## Training DeDoDe
-
-DISCLAMER: I've (Johan) not yet tested that the training scripts here reproduces our original results. This repo is very similar to the internal training repo, but there might be bugs introduced by refactoring etc. Let me know if you face any issues reproducing our results (or if you somehow get better results :D).
 
 See [experiments](experiments) for the scripts to train DeDoDe. We trained on a single A100-40GB with a batchsize of 8. Note that you need to do the data prep first, see [data_prep](data_prep).
 

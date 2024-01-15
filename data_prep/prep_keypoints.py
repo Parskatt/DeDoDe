@@ -66,6 +66,12 @@ for scene_id in scene_ids:
         points3D[int(point3D[0])] = np.array([
             float(point3D[1]), float(point3D[2]), float(point3D[3])
         ])
+
+    points3D_np = np.zeros((max(points3D.keys())+1, 3))
+    for idx, point in points3D.items():
+        points3D_np[idx] = point
+    np.save(f"{base_path}/prep_scene_info/detections3D/detections3D_{scene_id}.npy",
+            points3D_np)
         
     # Process images.txt
     with open(os.path.join(undistorted_sparse_path, 'images.txt'), 'r') as f:

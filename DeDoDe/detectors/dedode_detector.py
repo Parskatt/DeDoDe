@@ -10,12 +10,13 @@ from DeDoDe.utils import sample_keypoints, to_pixel_coords, to_normalized_coords
 
 
 class DeDoDeDetector(nn.Module):
-    def __init__(self, encoder, decoder, *args, **kwargs) -> None:
+    def __init__(self, encoder, decoder, *args, remove_borders = False, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.encoder = encoder
         self.decoder = decoder
         import torchvision.transforms as transforms
         self.normalizer = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        self.remove_borders = remove_borders
         
     def forward(
         self,
@@ -47,7 +48,7 @@ class DeDoDeDetector(nn.Module):
         keypoints, confidence = sample_keypoints(keypoint_p.reshape(B,H,W), 
                                   use_nms = False, sample_topk = True, num_samples = num_keypoints, 
                                   return_scoremap=True, sharpen = False, upsample = False,
-                                  increase_coverage=True)
+                                  increase_coverage=True, remove_borders = self.remove_borders)
         return {"keypoints": keypoints, "confidence": confidence}
 
     @torch.inference_mode()

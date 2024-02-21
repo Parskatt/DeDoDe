@@ -64,7 +64,7 @@ def dedode_detector_B(device = get_best_device(), weights = None):
     return model
 
 
-def dedode_detector_L(device = get_best_device(), weights = None):
+def dedode_detector_L(device = get_best_device(), weights = None, remove_borders = False):
     NUM_PROTOTYPES = 1
     residual = True
     hidden_blocks = 8
@@ -114,7 +114,7 @@ def dedode_detector_L(device = get_best_device(), weights = None):
     )
     encoder = VGG19(pretrained = False, amp = amp, amp_dtype = amp_dtype)
     decoder = Decoder(conv_refiner)
-    model = DeDoDeDetector(encoder = encoder, decoder = decoder).to(device)
+    model = DeDoDeDetector(encoder = encoder, decoder = decoder, remove_borders = remove_borders).to(device)
     if weights is not None:
         model.load_state_dict(weights)
     return model

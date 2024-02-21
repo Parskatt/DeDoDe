@@ -115,7 +115,7 @@ def newton_step(f:tuple["B","H","W"], inds, device = get_best_device()):
 @torch.no_grad()
 def sample_keypoints(scoremap, num_samples = 8192, device = get_best_device(), use_nms = True, 
                      sample_topk = False, return_scoremap = False, sharpen = False, upsample = False,
-                     increase_coverage = False,):
+                     increase_coverage = False, remove_borders = False):
     #scoremap = scoremap**2
     log_scoremap = (scoremap+1e-10).log()
     if upsample:
@@ -135,6 +135,11 @@ def sample_keypoints(scoremap, num_samples = 8192, device = get_best_device(), u
         scoremap = scoremap[:,0].clamp(min = 0)
     if use_nms:
         scoremap = scoremap * (scoremap == F.max_pool2d(scoremap, (3, 3), stride = 1, padding = 1))
+    if remove_borders:
+        frame = torch.zeros_like(scoremap)
+        # we hardcode 4px, could do it nicer, but whatever
+        frame[...,4:-4, 4:-4] = 1
+        scoremap = scoremap * frame
     if sample_topk:
         inds = torch.topk(scoremap.reshape(B,H*W), k = num_samples).indices
     else:

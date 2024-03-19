@@ -22,9 +22,9 @@
 </p>
 
 ## 🆕 Kornia Integration
-DeDoDe is in kornia(```
-pip install kornia
-```), and can be imported by e.g.
+DeDoDe is in kornia,
+```pip install kornia```, and can be imported by e.g.
+
 ```python
 from kornia.feature import DeDoDe
 dedode = DeDoDe.from_pretrained(detector_weights="L-upright", descriptor_weights="B-upright")

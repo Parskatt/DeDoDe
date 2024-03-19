@@ -21,6 +21,15 @@
     <em>The DeDoDe detector learns to detect 3D consistent repeatable keypoints, which the DeDoDe descriptor learns to match. The result is a powerful decoupled local feature matcher.</em>
 </p>
 
+## 🆕 Kornia Integration
+DeDoDe is in kornia(```
+pip install kornia
+```), and can be imported by e.g.
+```python
+from kornia.feature import DeDoDe
+dedode = DeDoDe.from_pretrained(detector_weights="L-upright", descriptor_weights="B-upright")
+```
+
 ## How to Use DeDoDe?
 Below we show how DeDoDe can be run, you can also check out the [demos](demo)
 ```python

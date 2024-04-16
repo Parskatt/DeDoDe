@@ -22,7 +22,8 @@
 </p>
 
 ## 🆕 v2 Detector
-We have updated the trainng recipe for the detector. Weights and updated training code will be posted shortly.
+We have updated the training recipe for the detector.
+Weights are available here: https://github.com/Parskatt/DeDoDe/releases/download/v2/dedode_detector_L_v2.pth
 
 ## 🆕 Kornia Integration
 DeDoDe is in kornia,
@@ -39,11 +40,13 @@ Below we show how DeDoDe can be run, you can also check out the [demos](demo)
 from DeDoDe import dedode_detector_L, dedode_descriptor_B, dedode_descriptor_G
 from DeDoDe.matchers.dual_softmax_matcher import DualSoftMaxMatcher
 
-detector = dedode_detector_L(weights = torch.load("dedode_detector_L.pth"))
+# You can either provide weights manually, or not provide any. If none
+# are provided we automatically download them. None: We now use v2 detector weights by default.
+detector = dedode_detector_L(weights = None)
 # Choose either a smaller descriptor,
-descriptor = dedode_descriptor_B(weights = torch.load("dedode_descriptor_B.pth"))
+descriptor = dedode_descriptor_B(weights = None)
 # Or a larger one
-descriptor = dedode_descriptor_G(weights = torch.load("dedode_descriptor_G.pth"), 
+descriptor = dedode_descriptor_G(weights = None, 
                                  dinov2_weights = None) # You can manually load dinov2 weights, or we'll pull from facebook
 
 matcher = DualSoftMaxMatcher()

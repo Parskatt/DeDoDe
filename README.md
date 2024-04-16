@@ -21,7 +21,7 @@
     <em>The DeDoDe detector learns to detect 3D consistent repeatable keypoints, which the DeDoDe descriptor learns to match. The result is a powerful decoupled local feature matcher.</em>
 </p>
 
-## 🆕 v2 Detector
+## 🆕 [DeDoDe v2: Analyzing and Improving the DeDoDe Keypoint Detector](https://arxiv.org/abs/2404.08928)
 We have updated the training recipe for the detector.
 Weights are available here: https://github.com/Parskatt/DeDoDe/releases/download/v2/dedode_detector_L_v2.pth
 

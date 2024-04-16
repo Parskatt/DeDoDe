@@ -106,4 +106,12 @@ All code/models except DINOv2 (descriptor-G), are MIT license. DINOv2 is Apache-
   year={2024},
   organization={IEEE}
 }
+
+@inproceedings{edstedt2024dedodev2,
+  title={{DeDoDe v2: Analyzing and Improving the DeDoDe Keypoint Detector
+}},
+  author = {Johan Edstedt and Georg Bökman and Zhenjun Zhao},
+  booktitle={IEEE/CVF Computer Society Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)},
+  year={2024},
+}
 ```

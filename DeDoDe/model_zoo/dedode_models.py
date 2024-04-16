@@ -65,6 +65,8 @@ def dedode_detector_B(device = get_best_device(), weights = None):
 
 
 def dedode_detector_L(device = get_best_device(), weights = None, remove_borders = False):
+    if weights is None:
+        weights = torch.hub.load_state_dict_from_url("https://github.com/Parskatt/DeDoDe/releases/download/v2/dedode_detector_L_v2.pth", map_location = device)
     NUM_PROTOTYPES = 1
     residual = True
     hidden_blocks = 8
@@ -122,6 +124,8 @@ def dedode_detector_L(device = get_best_device(), weights = None, remove_borders
 
 
 def dedode_descriptor_B(device = get_best_device(), weights = None):
+    if weights is None:
+        weights = torch.hub.load_state_dict_from_url("https://github.com/Parskatt/DeDoDe/releases/download/dedode_pretrained_models/dedode_detector_L.pth", map_location=device)
     NUM_PROTOTYPES = 256 # == descriptor size
     residual = True
     hidden_blocks = 5
@@ -177,6 +181,8 @@ def dedode_descriptor_B(device = get_best_device(), weights = None):
     return model
 
 def dedode_descriptor_G(device = get_best_device(), weights = None, dinov2_weights = None):
+    if weights is None:
+        weights = torch.hub.load_state_dict_from_url("https://github.com/Parskatt/DeDoDe/releases/download/dedode_pretrained_models/dedode_descriptor_G.pth", map_location=device)
     NUM_PROTOTYPES = 256 # == descriptor size
     residual = True
     hidden_blocks = 5

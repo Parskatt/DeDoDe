@@ -4,9 +4,65 @@ import torch.nn as nn
 from DeDoDe.detectors.dedode_detector import DeDoDeDetector
 from DeDoDe.descriptors.dedode_descriptor import DeDoDeDescriptor
 from DeDoDe.decoder import ConvRefiner, Decoder
-from DeDoDe.encoder import VGG19, VGG, VGG_DINOv2
+from DeDoDe.encoder import VGG11, VGG, VGG_DINOv2
 from DeDoDe.utils import get_best_device
 
+def dedode_detector_S(device = get_best_device(), weights = None, remove_borders = False):
+    if weights is None:
+        weights = torch.hub.load_state_dict_from_url("https://github.com/Parskatt/DeDoDe/releases/download/v2/dedode_detector_S_v2.pth", map_location = device)
+    NUM_PROTOTYPES = 1
+    residual = True
+    hidden_blocks = 4
+    amp_dtype = torch.float16#torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+    amp = True
+    conv_refiner = nn.ModuleDict(
+        {
+            "8": ConvRefiner(
+                512,
+                256,
+                128 + NUM_PROTOTYPES,
+                hidden_blocks = hidden_blocks,
+                residual = residual,
+                amp = amp,
+                amp_dtype = amp_dtype,
+            ),
+            "4": ConvRefiner(
+                256+128,
+                128,
+                64 + NUM_PROTOTYPES,
+                hidden_blocks = hidden_blocks,
+                residual = residual,
+                amp = amp,
+                amp_dtype = amp_dtype,
+
+            ),
+            "2": ConvRefiner(
+                128+64,
+                64,
+                32 + NUM_PROTOTYPES,
+                hidden_blocks = hidden_blocks,
+                residual = residual,
+                amp = amp,
+                amp_dtype = amp_dtype,
+
+            ),
+            "1": ConvRefiner(
+                64 + 32,
+                32,
+                1 + NUM_PROTOTYPES,
+                hidden_blocks = hidden_blocks,
+                residual = residual,
+                amp = amp,
+                amp_dtype = amp_dtype,
+            ),
+        }
+    )
+    encoder = VGG11(pretrained = False, amp = amp, amp_dtype = amp_dtype)
+    decoder = Decoder(conv_refiner)
+    model = DeDoDeDetector(encoder = encoder, decoder = decoder, remove_borders = remove_borders).to(device)
+    if weights is not None:
+        model.load_state_dict(weights)
+    return model
 
 def dedode_detector_B(device = get_best_device(), weights = None):
     residual = True

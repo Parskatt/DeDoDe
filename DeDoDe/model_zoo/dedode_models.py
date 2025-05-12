@@ -125,7 +125,7 @@ def dedode_detector_L(device = get_best_device(), weights = None, remove_borders
 
 def dedode_descriptor_B(device = get_best_device(), weights = None):
     if weights is None:
-        weights = torch.hub.load_state_dict_from_url("https://github.com/Parskatt/DeDoDe/releases/download/dedode_pretrained_models/dedode_detector_L.pth", map_location=device)
+        weights = torch.hub.load_state_dict_from_url("https://github.com/Parskatt/DeDoDe/releases/download/dedode_pretrained_models/dedode_descriptor_B.pth", map_location=device)
     NUM_PROTOTYPES = 256 # == descriptor size
     residual = True
     hidden_blocks = 5
